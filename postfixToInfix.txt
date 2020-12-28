@@ -1,0 +1,197 @@
+
+#include"iostream"
+#include"cstring"
+using namespace std;
+class Stack
+{
+        int size;
+        int top;
+        char *arr;
+        public:
+                Stack(int);
+                void push(char);
+                char pop();
+                bool isEmpty();
+                char gettop();
+                bool isFull();
+                void display();
+                int topI();
+                char topE()
+                {
+                        return arr[top];
+                }
+};       
+Stack::Stack(int size)
+{
+        this->size=size;
+        arr =new char[size];
+        top=-1;
+}
+char Stack::pop()
+{   
+        if(isEmpty())
+                cout<<"Underflow.."<<endl; 
+        else
+        {
+                char pop_item=arr[top];
+                cout<<"Element deleted is "<<pop_item<<endl;
+                top=top-1;
+                return pop_item;
+        }
+}
+bool Stack::isEmpty()
+{
+        if(top==-1)
+                return true;
+        else
+                return false;
+}
+bool Stack::isFull()
+{
+        if(top==(size-1))
+                return true;
+        else
+                return false;
+}
+
+void Stack::push(char ch)
+{
+        if(isEmpty())
+        {
+                top=top+1;
+                arr[top]=ch;
+        }
+
+  else if(isFull())
+        {
+                cout<<"Overflow"<<endl;
+        }
+        else
+        {
+                top=top+1;
+                arr[top]=ch;
+        }
+}
+int Stack::topI()
+{
+
+        return top;
+}
+
+char Stack::gettop()
+{
+        int pop_value;
+        if(isEmpty())
+                cout<<"Under flow";
+        else
+        {
+                pop_value=arr[top];
+                return pop_value;
+        }
+}
+int priority(char ch)
+{
+        if(ch=='^')
+                return 3;
+        else if(ch=='%' || ch=='/' || ch=='*')
+                return 2;
+        else if(ch=='+' || ch=='-')
+                return 1;
+        else
+                return 0;
+}
+int isOperand(char ch)
+{
+        if((ch>='a' && ch<='z')||(ch>='A' && ch<='Z'))
+                return 1;
+        else
+                return 0;
+}
+int isOperator(char ch)
+{
+        if(ch=='+' || ch=='-'  || ch=='*'  || ch=='/' || ch=='%' || ch=='^')
+                return 1;
+        else
+                return 0;
+}
+
+
+int main()
+{
+        int n;
+        cout<<"Enter the size of array should be:  "<<endl;
+        cin>>n;
+        Stack s(n);
+        char arr1[20];
+        cout<<"Enter the experesion  ";
+        cin>>arr1;
+        cout<<arr1;
+        char operand[20];
+        int i,j;
+        for(i=0,j=0;i<strlen(arr1);i++)
+        {
+                if(isOperand(arr1[i]))
+                {
+                        operand[j]=arr1[i];
+                        cout<<"operand copied "<<arr1[i]<<endl;
+                        cout<<"Operand in j is"<<operand[j]<<endl;
+                        j++;
+                }
+                else if(isOperator(arr1[i]))
+                {
+                        cout<<"Operator is "<<arr1[i]<<endl;
+                        if(s.isEmpty())
+                        {
+                                s.push(arr1[i]);
+                                cout<<"First elememt pushed is "<<arr1[i]<<endl;
+
+
+                        }
+                        else
+                        {
+                                char a=s.gettop();
+                                //cout<<endl<<"Ele at top is: "<<a<<endl;
+                        //      cout<<endl<<"Priority of element in array:  "<<priority(arr1[i])<<endl;
+                        //      cout<<endl<<"Priority of element in stack:  "<<priority(a)<<endl;
+
+                                if(priority(arr1[i])>priority(a))
+                                {
+                                        s.push(arr1[i]);
+                                        cout<<endl<<"Element pushed is "<<arr1[i]<<endl;
+
+                                }
+                                else
+                                {
+                                        char d=s.pop();
+                                        s.push(arr1[i]);
+                                        cout<<"Popped and Copied element is operand array is "<<arr1[i]<<endl;
+                                        operand[j]=d;
+                                        j++;
+                                }
+                        }
+                }
+                else
+                {
+                }
+        }
+        //cout<<s.topI()<<endl;
+        while(s.topI()!=-1)
+        {
+                cout<<s.topI()<<endl;
+                char c=s.pop();
+        //      cout<<"The popped character is "<<c<<endl;
+                operand[j]=c;
+                j++;
+        }
+        cout<<s.topE()<<endl;
+        for(int j=0;j<=strlen(arr1);j++)
+        {
+                cout<<operand[j]<<endl;
+        }
+
+
+
+return 0;
+
+}
+

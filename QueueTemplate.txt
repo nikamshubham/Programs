@@ -1,0 +1,111 @@
+#include"iostream"
+#include"cstring"
+using namespace std;
+template<class T>
+class Stack
+{
+        private:
+                int size;
+                int top;
+                T *s;
+        public:
+                Stack(int);
+                void push(T);
+                T pop();
+                T gettop();
+                bool isEmpty();
+                bool isFull();
+                void display();
+};
+template<class T>
+Stack<T>::Stack(int size)
+{
+        this->size=size;
+        s=new T[size];
+        top=-1;
+}
+template<class T>
+bool Stack<T>::isEmpty()
+{
+        if(top==-1)
+                return true;
+        else
+                return false;
+}
+template<class T>
+bool Stack<T>::isFull()
+{
+        if(top==size-1)
+        {       cout<<"top is "<<top<<endl;
+                return true;
+        }
+        else
+                return false;
+}
+template<class T>
+void Stack<T>::push(T element)
+{
+        if(isFull())
+        {
+           cout<<"overflow";
+           return;
+        }
+     else if(isEmpty())
+        {
+                top=0;
+        }
+        else
+        {
+                top=top+1;
+
+        }
+        s[top]=element;
+}
+template<class T>
+T Stack<T>::pop()
+{
+        if(isEmpty())
+        {
+                cout<<"Stack is Empty..."<<endl;
+        }
+        else
+        {
+                int pop_element=s[top];
+                top=top-1;
+                return pop_element;
+        }
+}
+template<class T>
+T Stack<T>::gettop()
+{
+        if(isEmpty())
+                cout<<"Empty stack"<<endl;
+        else
+        {
+                int top_element=s[top];
+                return top_element;
+        }
+}
+template<class T>
+void Stack<T>::display()
+{
+        for(int i=0 ;i<=top;i++)
+        {
+                cout<<s[i]<<endl;
+        }
+}
+int main()
+{
+//      int n;
+//      cout<<"Enter the size of the stack"<<endl;
+//      cin>>n;
+        Stack<char> a(8);
+        a.push('a');
+        a.push('b');
+        a.display();
+        cout<<endl;
+        a.pop();
+        cout<<endl;
+        a.display();
+        return 0;
+}

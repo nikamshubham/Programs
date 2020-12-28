@@ -1,0 +1,93 @@
+#include"iostream"
+using namespace std;
+
+class Stack
+{
+        private:
+                int top;
+                int size;
+                char *ptr;
+        public:
+                Stack(int size)
+                {
+                        this->size=size;
+                        top=-1;
+                        ptr= new char[size];
+                }
+                bool isEmpty()
+                {
+                        if(top==-1)
+                                return true;
+                        else
+                                return false;
+                }
+                bool isFull()
+                {
+                        if(top==size-1)
+                                return true;
+                        else
+                                return false;
+                }
+                void push(char a)
+                {
+                        if(isEmpty())
+                        {
+                                top=top+1;
+                                ptr[top]=a;
+                        }
+                        else if(isFull())
+                        {
+                                cout<<"OVERFLOW"<<endl;
+                        }
+                        else
+                        {
+                                top=top+1;
+                                ptr[top]=a;
+                        }
+                }
+                int pop()
+                {
+                        if(isEmpty())
+                                cout<<"UNDERFLOW"<<endl;
+                        else
+                        {
+                                int element= ptr[top];
+                                top=top-1;
+                                return element;
+                        }
+                }
+};
+int main()
+{
+        int n;
+        Stack s(6);
+        int size;
+        cout<<"Enter the size of the array"<<endl;
+        cin>>size;
+        char arr[size];
+        //cout<<"Enter the string to check whether it is palindrome or not"<<endl;
+        cin>>arr;
+        char out[size];
+        for(int i=0;i<size;i++)
+        {
+                s.push(arr[i]);
+        }
+        for(int i=0;i<size;i++)
+        {
+                out[i]=s.pop();
+
+        }
+        int flag=0;
+        for(int i=0;i<size;i++)
+        {
+                if(arr[i]==out[i])
+                        flag=1;
+                else
+                        flag=0;
+        }
+        if(flag==1)
+                cout<<"PALINDROME"<<endl;
+        else
+                cout<<"NOT PALINDROME"<<endl;
+
+}

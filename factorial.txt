@@ -1,0 +1,21 @@
+#include"iostream"
+using namespace std;
+int factorial(int no);
+int main()
+{
+        int n,result;
+        cout<<"Enter the no whose factorial is to be calculated"<<endl;
+        cin>>n;
+        result=factorial(n);
+        cout<<result<<endl;
+        return 0;
+}
+int factorial(int no)
+{
+        if(no==0)
+                return 1;
+        else if(no==1)
+                return 1;
+        else
+                return no*factorial(no-1);
+}

@@ -1,0 +1,192 @@
+#include"iostream"
+#include"cstring"
+#include"cstdlib"
+using namespace std;
+class Queue
+{
+        private:
+                int size;
+                int front;
+                int rear;
+                int *cq;
+                int total_count;
+        public:
+                Queue(int);
+                void enque(int);
+                int  deque();
+                bool isEmpty();
+                bool isFull();
+                int getfront();
+                int getrear();
+                void display();
+};
+Queue::Queue(int size)
+{
+        this->size=size;
+        cq=new int[size];
+        front=-1;
+        rear=-1;
+        total_count=0;
+}
+bool Queue::isEmpty()
+{
+        if(total_count==0)
+                 return true;
+        else
+                return false;
+}
+bool Queue::isFull()
+{
+        if(total_count==size)
+                return true;
+        else
+                return false;
+}
+void Queue:: enque(int data)
+{
+        cout<<endl<<"Value of Rear is"<<rear<<endl;
+        cout<<endl<<"Value of size is"<<size<<endl;
+        if(isEmpty())
+        {
+                front=front+1;
+                cout<<"Front is"<<front<<endl;
+                rear=rear+1;
+                cout<<"Rear  is"<<rear<<endl;
+                cq[rear]=data;
+                total_count=total_count+1;
+        }
+        else if(isFull())
+        {
+                cout<<"OVERFLOW"<<endl;
+        }
+        else
+        {
+                if(rear==size-1)
+                {
+                        rear=0;
+                        cq[rear]=data;
+                        total_count=total_count+1;
+                }
+                else
+                {
+                        rear=rear+1;
+                        cq[rear]=data;
+                        total_count=total_count+1;
+                }
+        }
+}
+int Queue:: deque()
+{
+        if(isEmpty())
+        {
+                cout<<"To character to remove from the queue"<<endl;
+        }
+        else if(total_count==1)
+        {
+                int remove_element=cq[front];
+                front=-1;
+                rear=-1;
+                total_count=total_count-1;
+                return remove_element;
+        }
+        else if(front==size-1)
+        {
+                int remove_element=cq[front];
+                front=0;
+                total_count=total_count-1;
+                return remove_element;
+        }
+        else
+        {
+                int remove_element=cq[front];
+                front=front+1;
+                total_count=total_count-1;
+                return remove_element;
+        }
+}
+int Queue::getfront()
+{
+        if(isEmpty())
+                cout<<"EMPTY QUEUE"<<endl;
+        else
+        {
+                int front_element=cq[front];
+                return front_element;
+        }
+}
+int Queue::getrear()
+{
+        if(isEmpty())
+                cout<<"EMPTY QUEUE"<<endl;
+        else
+        {
+                int rear_element=cq[rear];
+                return rear_element;
+        }
+}
+void Queue::display()
+{
+        if(isEmpty())
+        {
+                cout<<"NO ELEMENTS TO PRINT DATA"<<endl;
+        }
+        else if(front<rear)
+        {
+                for(int i=front;i<=rear;i++)
+                 {
+                         cout<<cq[i]<<endl;
+                 }
+        }
+        else
+        {
+                for(int i=front;i<=size-1;i++)
+                {
+                        cout<<cq[i]<<endl;
+                }
+                for(int j=0;j<=rear;j++)
+                {
+                        cout<<cq[j]<<endl;
+                }
+        }
+}
+
+int main()
+{
+        int n;
+        cout<<"Enter the size of the queue"<<endl;
+        cin>>n;
+        Queue a(n);
+        int i;
+        while(1)
+        {
+        cout<<"Enter the choice "<<endl<<"1.ENQUE"<<endl<<"2.DEQUE"<<endl<<"3.GET FRONT"<<endl<<"4.GET REAR"<<endl<<"5.DISPLAY"<<endl<<"6.Exit"<<endl;
+        cin>>i;
+        switch(i)
+        {
+                case 1:
+                        {int m;
+                        cout<<"Enter the element to insert into queue "<<endl;
+                        cin>>m;
+                        a.enque(m);
+                        break;}
+                case 2:
+                        {int f=a.deque();
+                        cout<<"The element deleted from the queue is : "<<f<<endl;
+                        break;}
+                case 3:
+                        {int b=a.getfront();
+                        cout<<"The element present at the front end is : "<<b<<endl;                        break;}
+                case 4:
+                        {int d=a.getrear();
+                        cout<<"The element present at the rear end is : "<<d<<endl;
+                        break;}
+                case 5:
+                        {cout<<"Element present in the queue are"<<endl;
+                        a.display();
+                        break;}
+                case 6:
+                        exit(0);
+        }
+        }
+return 0;
+}

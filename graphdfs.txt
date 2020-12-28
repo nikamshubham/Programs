@@ -1,0 +1,156 @@
+#include"iostream"
+#include"cstring"
+using namespace std;
+class Stack
+{
+        private:
+                int top;
+                int *ptr;
+                int size;
+        public:
+                Stack(int);
+                void push(int);
+                void pop();
+                void topelement();
+                bool isEmpty();
+                bool isFull();
+                void display();
+
+};
+Stack::Stack(int size)
+{
+        this->size=size;
+        top=-1;
+        ptr=new int[size];
+}
+bool Stack::isEmpty()
+{
+        if(top==-1)
+                return true;
+        else
+                return false;
+}
+bool Stack::isFull()
+{
+        if(top==(size-1))
+                return true;
+        else
+                return false;
+}
+void Stack::push(int element)
+{
+        if(isEmpty())
+        {
+                top=top+1;
+                ptr[top]=element;
+        }
+        else if(isFull())
+        {
+                cout<<"Stack is Full"<<endl;
+        }
+        else
+        {
+                top=top+1;
+                ptr[top]=element;
+        }
+}
+void Stack::pop()
+{
+        if(isEmpty())
+                cout<<"Stack is empty no element to pop"<<endl;
+        else
+        {
+                int pop_element=ptr[top];
+                top=top-1;
+                cout<<"The pop element is "<<pop_element<<endl;
+        }
+}
+void Stack::topelement()
+{
+        if(isEmpty())
+                cout<<"Stack is empty"<<endl;
+        else
+        {
+                int a=ptr[top];
+                cout<<"The topmost element of stack is: "<<a<<endl;
+        }
+}
+void Stack::display()
+{
+        if(isEmpty())
+                cout<<"Stack is empty"<<endl;
+        else
+        {
+                for(int i=0;i<=top;i++)
+                {
+                        cout<<ptr[i]<<endl;
+                }
+        }
+}
+int main()
+{       Stack s(60);
+        int arr[7][7]={{0,1,1,0,0,0,0},{0,0,0,1,0,0,0},{0,0,0,0,0,0,1},{0,0,0,0,1,1,0},{0,0,0,0,0,0,0},{0,0,1,0,0,0,0},{0,0,0,0,0,0,0}};
+        int i,j;
+        int out[9],count=0;
+        int i_old=0,j_old=0;
+        int k;
+        int size=7;
+        while(i!=6 && j!=6)
+        {
+                for(i=0;i<size;i++)
+                {
+                        for(j=0;j<size;j++)
+                        {
+                                if(arr[i][j]==1)
+                                        { cout<<"Current value of i: "<<i<<endl;
+                                                        cout<<"Current value of j: "<<j<<endl;
+                                                s.push(arr[i][j]);
+                                                cout<<"segmentaton ....."<<endl;
+                                                s.display();
+                                                out[count]=i;
+                                                count++;
+                                                i_old=i;
+                                                j_old=j;
+                                                //i=j-1;
+                                                //j=0;
+                                                //break;
+                                                s.display();
+                                        }
+                                else
+                                        { cout<<"abc"<<endl;
+                                                if(j==6)
+                                                {
+                                                        cout<<"Current value of i: "<<i<<endl;
+                                                        cout<<"Current value of j: "<<j<<endl;
+                                                        if(arr[i_old][j_old]==1)
+                                                        {
+                                                                for(k=j;k<size;k++)
+                                                                {
+                                                                        if(arr[i][j]==1)
+                                                                         {
+                                                                                 //s.push(arr[i][j]);
+                                                                                // i_old=i;
+                                                                                // j_old=k;
+                                                                                // i=k+1;
+                                                                                break;
+                                                                        }
+                                                                }
+                                                        }
+                                                }
+                                                else
+                                                {
+                                                         cout<<"Current value of i: "<<i<<endl;
+                                                        cout<<"Current value of j: "<<j<<endl;
+                                                        cout<<"else within else"<<endl;
+                                                }
+                                        }
+
+                        }
+                }
+        }
+        int l;
+        for(l=0;l<size;l++)
+        {
+                cout<<out[l]<<endl;
+        }
+}

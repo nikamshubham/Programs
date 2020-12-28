@@ -1,0 +1,135 @@
+#include"iostream"
+#include"cstring"
+using namespace std;
+class Stack
+{
+        int size;
+        int top;
+        char *arr;
+        public:
+                Stack(int);
+                void push(char);
+                char pop();
+                bool isEmpty();
+                bool isFull();
+                void display();
+};
+Stack::Stack(int size)
+{
+        this->size=size;
+        arr =new char[size];
+        top=-1;
+}
+char Stack::pop()
+{
+        if(isEmpty())
+                cout<<"Underflow.."<<endl;
+        else
+        {
+                char pop_item=arr[top];
+          cout<<"Element deleted is "<<pop_item<<endl;
+                top=top-1;
+                return pop_item;
+        }
+}
+bool Stack::isEmpty()
+{
+        if(top==-1)
+                return true;
+        else
+                return false;
+}
+bool Stack::isFull()
+{
+        if(top==(size-1))
+                return true;
+        else
+                return false;
+}
+
+void Stack::push(char ch)
+{
+        if(isEmpty())
+        {
+                top=top+1;
+                arr[top]=ch;
+        }
+        else if(isFull())
+        {
+                cout<<"Overflow"<<endl;
+        }
+        else
+        {
+                top=top+1;
+                arr[top]=ch;
+        }
+}
+int main()
+{
+        int n;
+        int flag=0;
+        cout<<"Enter the size of array should be:  "<<endl;
+        cin>>n;
+        Stack s(n);
+
+        char arr[20];
+        cout<<"Enter the Experission"<<endl;
+
+        cin>>arr;
+        cout<<strlen(arr);
+        for(int i=0;i<strlen(arr);i++)
+        {
+
+
+                if(arr[i]=='{' || arr[i]=='[' || arr[i]=='(' )
+
+                {
+                        s.push(arr[i]);
+                }
+                else if(arr[i]=='}' || arr[i]==']' || arr[i]==')')
+                {
+                        char a=s.pop();
+                        if(arr[i]=='}' && a=='{' )
+                        {
+                                flag=1;
+
+                        }
+                        else if(arr[i]==']' && a=='[')
+                        {
+                               cout<<"Valid"<<endl;
+                                flag=1;
+                        }
+                        else if(arr[i]==')' && a=='(')
+                        {
+                          cout<<"valid"<<endl;
+                                flag=1;
+                        }
+                        else
+
+                        {
+                                flag=2;
+                                break;
+                        }
+                }
+                else
+                        {
+                                cout<<"Invalid input"<<endl;
+                        }
+              if(!s.isEmpty())
+               {
+                    flag=2;
+               }
+        }
+        if(flag==1)
+        {
+                cout<<"Valid"<<endl;
+        }
+        else if(flag==2)
+        {
+                cout<<"Invalid"<<endl;
+        }
+        else
+        {
+        }
+return 0;
+}

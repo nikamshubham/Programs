@@ -1,0 +1,27 @@
+#include"iostream"
+using namespace std;
+struct student
+{
+        int roll;
+        int  marks;
+
+
+};
+int main()
+{
+        int size;
+        struct student *a1[size];
+        cout<<"Please enter the no of student"<<endl;
+        cin>>size;
+        a1=new struct student[size];
+////    cin>>a1->roll;
+        cout<<"Value at rollno is "<<a1.roll<<endl;
+        return 0;
+
+        //struct student *a2;
+        //a2=&a1;
+
+        //cin>>a1->(*(&roll));
+        //cout<<"The value at roll no is"<<a1->roll<<endl;
+//      return 0;
+}

@@ -1,0 +1,85 @@
+#include"iostream"
+
+using namespace std;
+typedef struct Node
+{
+        int data;
+        struct Node *next;
+}node;
+class Graph
+{
+        private:
+                node *ptr;
+        public:
+                Graph()
+                {
+                        ptr=NULL;
+                }
+
+                node *createnode(int vertex)
+                {
+                        node *newnode= new node;
+                        newnode->next=NULL;
+                        newnode->data=vertex;
+                        return newnode;
+                }
+                node **createArray(int size)
+                {
+                        node** ptr=new node*[size];
+                        for(int i=0;i<size;i++)
+                        {
+                                ptr[i]=NULL;
+                        }
+                return ptr;
+                }
+};
+int main()
+{       Graph g;
+        int size=4;
+        int ptr[4][4]={{0,1,1,0},{0,0,0,1},{0,1,0,1},{0,0,0,0}};
+        int i,j;
+        node **nn=g.createArray(size);
+        for(i=0;i<size;i++)
+        {
+                for(j=0;j<size;j++)
+                {
+                        if(ptr[i][j]==1)
+                        {
+                                node *newnode=g.createnode(j);
+                                {
+                                        if(nn[i]==NULL)
+                                        {
+
+                                          nn[i]=newnode;
+                                        }
+                                        else
+                                        {
+                                                node *temp=nn[i];
+                                                while(temp->next!=NULL)
+                                                {
+                                                        temp=temp->next;
+                                                }
+                                                temp->next=newnode;
+                                        }
+
+                                }
+                        }
+                        else
+                        {
+                         continue;
+                        }
+                }
+        }
+        for(i=0;i<size;i++)
+        {
+                cout<<i<<"->";
+                node* temp=nn[i];
+                while(temp!=NULL)
+                {
+                        cout<<temp->data<<" ";
+                        temp=temp->next;
+                }
+             cout<<endl;
+        }
+}
+  

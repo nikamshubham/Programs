@@ -1,0 +1,132 @@
+#include"iostream"
+#include"cstdlib"
+using namespace std;
+typedef struct Node
+{
+        int data;
+        struct Node *next;
+}node;
+class CircularLinkedList
+{
+        private:
+                node *first;
+                node *last;
+                int count;
+        public:
+                CircularLinkedList()
+                {
+                        first=NULL;
+                        last=NULL;
+                        count=0;
+                }
+                bool isEmpty()
+                {
+                        if(count==0)
+                                return true;
+                        else
+                                return false;
+                }
+                node *createNode(int data)
+                {
+                        node *newnode= new node;
+                        newnode->data=data;
+                        newnode->next=NULL;
+                        return newnode;
+                }
+                void addNode(int data)
+                {
+                        node *newnode=createNode(data);
+                        if(isEmpty())
+                        {
+                                first=newnode;
+                                last=newnode;
+                                newnode->next=first;
+
+                        }
+                        else
+                        {
+                                last->next=newnode;
+                                last=newnode;
+                                newnode->next=first;
+                        }
+                        count++;
+                }
+                void insert(int data,int pos)
+                {
+                        node *newnode=createNode(data);
+                        if(pos==1)
+                        {
+                                newnode->next=first;
+                                first=newnode;
+                                last->next=newnode;
+                        }
+                        else if(pos>count)
+                        {
+                                addNode(data);
+                        }
+                        else
+                        {
+                                node *temp=first;
+                                for(int i=1;i<pos-1;i++)
+                                {
+                                        temp=temp->next;
+                                }
+                                newnode->next=temp->next;
+                                temp->next=newnode;
+                        }
+                }
+                void deletebyposition(int pos)
+                {
+                        node *temp=first;
+                        if(isEmpty())
+                                cout<<"No element to delete the list"<<endl;
+                        else if(pos==1)
+                        {
+                                first=first->next;
+                                last->next=first;
+                                delete temp;
+                                count--;
+                                if(count==0)
+                                {
+                                        first=NULL;
+                                        last=NULL;
+                                }
+                        }
+                        else
+                        {
+                                for(int i=1;i<pos-1;i++)
+                                {
+                                        temp=temp->next;
+                                }
+                                node *n=temp->next;
+                                temp->next=temp->next->next;
+                                delete n;
+                                count--;
+                        }
+
+
+                }
+                void display()
+                {
+                        node *n;
+                        for(n=first;n<last;n=n->next)
+                        {
+                                cout<<n->data<<endl;
+                                if(n==last)
+                                        break;
+                        }
+                }
+};
+int main()
+{
+        CircularLinkedList a;
+        a.addNode(10);
+        a.addNode(11);
+        a.addNode(12);
+        a.insert(15,4);
+        a.insert(20,5);
+        a.deletebyposition(2);
+        a.display();
+        return 0;
+}
+

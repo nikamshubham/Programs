@@ -1,0 +1,300 @@
+#include "iostream"
+#include "cstring"
+#include "cstdlib"
+using namespace std;
+typedef struct Node
+{
+        int data;
+        struct Node *left;
+        struct Node *right;
+}node;
+template< class T>
+class Stack
+{
+        private:
+                int top;
+                 T *ptr;
+                int size;
+        public:
+                Stack(int);
+                void push(T);
+                void pop();
+                void topelement();
+                bool isEmpty();
+                bool isFull();
+                void display();
+
+};
+template< class T>
+Stack<T>::Stack(int size)
+{
+        this->size=size;
+        top=-1;
+        ptr=new T[size];
+}
+template< class T>
+bool Stack<T>::isEmpty()
+{
+        if(top==-1)
+                return true;
+        else
+                return false;
+}
+template<class T>
+bool Stack<T>::isFull()
+{
+        if(top==(size-1))
+                return true;
+        else
+                return false;
+}
+template<class T>
+void Stack<T>::push(T element)
+{
+        if(isEmpty())
+        {
+                top=top+1;
+                T[top]=element;
+        }
+        else if(isFull())
+        {
+                cout<<"Stack is Full"<<endl;
+        }
+        else
+        {
+                top=top+1;
+                T[top]=element;
+        }
+}
+template<class T>
+void Stack<T>::pop()
+{
+        if(isEmpty())
+                cout<<"Stack is empty no element to pop"<<endl;
+        else
+        {
+                int pop_element=T[top];
+                top=top-1;
+                cout<<"The pop element is "<<pop_element<<endl;
+        }
+}
+class BST
+{
+        node *root;
+        public:
+
+        BST()
+        {
+                root=NULL;
+        }
+
+        node* createNode(int data)
+        {
+                node *newnode=new node;
+                newnode->left=NULL;
+                newnode->right=NULL;
+                newnode->data=data;
+                return newnode;
+        }
+bool isEmpty()
+{
+        if(root==NULL)
+        {
+                return true;
+        }
+        else
+        {
+                return false;
+        }
+}
+
+void addNode(int data)
+{
+        node *newnode=createNode(data);
+        if(isEmpty())
+        {
+                root=newnode;
+                return;
+        }
+        node *temp=root;
+        while(temp!=NULL)
+        {
+                if(data < temp->data)
+                {
+                        if(temp->left ==NULL)
+                        {
+                                temp->left=newnode;
+                                break;
+                        }
+                        temp=temp->left;
+         }
+                else
+                {
+
+                        if(temp->right== NULL)
+                        {
+                                temp->right=newnode;
+                                break;
+                        }
+                        temp=temp->right;
+
+                }
+        }
+}
+void inorder_recursive(node *root)
+{
+        Stack <node> s1(8);
+        node *temp=root;
+        while(temp!=NULL || s1.isEmpty())
+        {
+                if(temp!=NULL)
+                {
+                        s1.push(temp);
+                        temp=temp->left;
+                }
+                else
+                {
+                        node *temp=s1.pop();
+                        cout<<temp->data<<endl;
+                        temp=temp->right;
+                }
+        }
+}
+
+void inorder(node *r)
+{
+
+        if(r==NULL)
+        {
+                return;
+        }
+        inorder(r->left);
+        cout<<r->data<<endl;
+        inorder(r->right);
+}
+
+
+void preorder(node *r)
+{
+        if(r==NULL)
+       {
+                return;
+        }
+        cout<<r->data<<endl;
+        preorder(r->left);
+        preorder(r->right);
+}
+
+void postorder(node *r)
+{
+        if(r==NULL)
+        {
+                return;
+        }
+        postorder(r->left);
+        postorder(r->right);
+        cout<<r->data<<endl;
+}
+void inorderRecursiveUtil()
+{
+        inorder_recursive(root);
+}
+void inorderutil()
+{
+        inorder(root);
+
+}
+
+void preorderutil()
+{
+        preorder(root);
+}
+
+void postorderutil()
+{
+        postorder(root);
+}
+
+
+int heightNode(node *n)
+{
+        if(n==NULL)
+        {
+                return -1;
+        }
+        int h1=heightNode(n->left);
+        int  h2=heightNode(n->right);
+        if(h1>h2)
+        {
+                return (h1+1);
+        }
+        else
+        {
+                return (h2+1);
+        }
+}
+
+void min(node *n)
+{
+        if(n->left==NULL)
+        {
+
+        cout<<n->data<<endl;
+           return;
+        }
+        min(n->left);
+
+}
+
+void max(node *n)
+{
+
+        if(n->right==NULL)
+        {
+                cout<<n->data;
+                return ;
+        }
+
+        max(n->right);
+
+}
+void max()
+{
+        max(root);
+}
+void min()
+{
+        min(root);
+}
+void height()
+{
+        cout<<"Height:"<<heightNode(root)<<endl;
+}
+
+};
+
+int main()
+{
+        BST b;
+        int ch;
+        while(1)
+        {
+                cout<<"Enter your choice"<<endl<<"1.ADD A NODE IN BST"<<endl<<"2.RECURSIVE INORDER OF TREE"<<endl;
+
+                switch(ch)
+                {
+                        case 1:
+                                {
+                                        int m;
+                                        cout<<"Enter node which you want to add:"<<endl;
+                                        cin>>m;
+                                        b.addNode(m);
+                                        break;
+                                }       return 0;
+                case 2:
+                                {
+                                        b.inorderRecursiveUtil();
+                                }
+                }
+        }
+}

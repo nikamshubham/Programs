@@ -1,0 +1,276 @@
+
+#include"iostream"
+#include"cstring"
+#include"cstdlib"
+using namespace std;
+typedef struct Node
+{
+        int data;
+        struct Node *next;
+}node;
+
+class LinkedList
+{
+        private:
+                node *first;
+                node *last;
+                int total_count;
+        public:
+                LinkedList();
+                bool isEmpty();
+                node *create_node(int data)
+                {
+                        node *newnode=new node;
+                        newnode->data=data;
+                        newnode->next=NULL;
+                        return newnode;
+                }
+
+                node* getfirst();
+                void reverse(node*);
+                node* getlast();
+                void add_node(int);
+                void insert_node(int,int);
+                void delete_by_value(int);
+                void delete_by_position(int);
+                void display();
+                ~LinkedList();
+};
+LinkedList::LinkedList()
+{
+        first=NULL;
+        last=NULL;
+        total_count=0;
+}
+LinkedList::~LinkedList()
+{
+        node *n;
+        node *temp=first;
+        while(temp!=NULL)
+        {
+                n=temp;
+                temp=temp->next;
+                delete n;
+        }
+        cout<<"All notes deleted"<<endl;
+}
+bool LinkedList::isEmpty()
+{
+        if(total_count==0)
+                return true;
+        else
+                return false;
+}
+
+void LinkedList::add_node(int data)
+{
+        node *newnode=create_node(data);
+        if(isEmpty())
+        {
+                first=newnode;
+                last= newnode;
+        }
+        else
+        {
+                last->next=newnode;
+                last=newnode;
+        }
+        total_count=total_count+1;
+}
+void LinkedList::insert_node(int data,int pos)
+{
+        node *newnode=create_node(data);
+        if(pos==1)
+        {
+                newnode->next=first;
+                first=newnode;
+        }
+        else if(pos>total_count)
+        {
+                add_node(data);
+        }
+        else
+        {
+                node *temp=first;
+                for(int i=1;i<pos-1;i++)
+                {
+                        temp=temp->next;
+                }
+                newnode->next=temp->next;
+                temp->next=newnode;                    //CHECK FOR THE ERROR
+        }
+        total_count=total_count+1;
+}
+
+void LinkedList::delete_by_value(int data)
+{
+        node *temp=first;
+        if(isEmpty())
+                cout<<"List is empty"<<endl;
+        else if(first->data==data)
+        {
+                first=first->next;
+                delete temp;
+                total_count=total_count-1;
+
+                if(total_count==0)
+                {
+                        first=NULL;
+                        last=NULL;
+                }
+         }
+        else
+        {
+                while(temp->next->data!=data)
+                {
+                        temp=temp->next;
+                }
+                if(temp->next==last)
+                {
+                        node *n=last;
+                        temp->next=NULL;
+                        last=temp;
+                        delete n;
+                        total_count=total_count-1;
+                }
+                else
+                {
+                        node *n =temp->next;
+                        temp->next=temp->next->next;
+                        delete n;
+                }
+        total_count=total_count-1;
+        }
+}
+void LinkedList::delete_by_position(int pos)
+{
+        node *temp=first;
+        if(isEmpty())
+                cout<<"No element to delete from the list"<<endl;
+        else if(pos==1)
+        {
+                first=first->next;
+                delete temp;
+                total_count=total_count-1;
+                if(total_count==0)
+                {
+                        first=last=0;
+                }
+        }
+        else
+        {
+                for(int i=1;i<pos-1;i++)
+                {
+                        temp=temp->next;
+                }
+                node *n=temp->next;
+                temp->next=temp->next->next;
+                delete n;
+                total_count=total_count-1;
+        }
+}
+void LinkedList::display()
+{
+
+        if(isEmpty())
+                cout<<"List is empty"<<endl;
+        else
+        { node *n;
+                for(n=first;n!=NULL;n=n->next)
+                {
+                        cout<<n->data<<endl;
+
+                }
+        //      cout<<n->data<<endl;
+        }
+
+}
+void LinkedList::reverse(node *r)
+{
+        if(r==NULL)
+        {
+                return;
+        }
+        reverse(r->next);
+        cout<<r->data;
+}
+
+node* LinkedList::getfirst()
+{
+        cout<<"Element at first: "<<first->data<<endl;
+        return first;
+}
+node* LinkedList::getlast()
+{
+        cout<<"Element at last: "<<last->data<<endl;
+        //      return last;
+}
+int main()
+{
+        LinkedList a;
+        int i=0;
+        while(1)
+        {
+                cout<<"Enter the choice "<<endl<<"1.Add node"<<endl<<"2.Insert node"<<endl<<"3.Delete node"<<endl<<"4.GET First"<<endl<<"5.Get last"<<endl<<"6.DISPLAY"<<endl<<"7.Delete by position" <<endl<<"8.Exit"<<endl;
+                cin>>i;
+                switch(i)
+                {
+                        case 1:
+                                {
+                                        int m;
+                                        cout<<"Enter the element to add into linked list "<<endl;
+                                        cin>>m;
+                                        a.add_node(m);
+                                        break;
+                                }
+                        case 2:
+                                {
+                                        int m,n;
+                                        cout<<"Enter the element to insert into linked list "<<endl;
+                                        cin>>m;
+                                        cout<<"Enter the position where the element is to be inserted "<<endl;
+                                        cin>>n;
+                                        a.insert_node(m,n);
+                                        break;
+                                }
+                        case 3:
+                                {
+                                        int m;
+                                        cout<<"Enter the value to be deleted "<<endl;
+                                        cin>>m;
+                                        a.delete_by_value(m);
+                                        break;
+                                }
+
+                        case 4:
+                                {
+                                        a.getfirst();
+                                        break;
+                                }
+                        case 5:
+                                {
+                                        a.getlast();
+                                        break;
+                                }
+                        case 6:
+                                {
+                                        a.display();
+                                        break;
+                                }
+                        case 7:
+                                {
+                                        int m;
+                                        cout<<"Enter the position to be deleted "<<endl;
+                                        cin>>m;
+                                        a.delete_by_position(m);
+                                        break;
+                                }
+                        case 8:
+                                        exit(1);
+                        case 9:
+                                {
+                                        a.reverse(a.getfirst());
+                                }
+                }
+        }
+}

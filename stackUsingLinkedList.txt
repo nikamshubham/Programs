@@ -1,0 +1,150 @@
+#include"iostream"
+#include"cstring"
+#include"cstdlib"
+using namespace std;
+typedef struct Node
+{
+        int data;
+        struct Node *next;
+}node;
+
+class LinkedList
+{
+        private:
+                node *top;
+                node *ref;
+                int total_count;
+        public:
+                LinkedList();
+                bool isEmpty();
+                node *create_node(int data)
+                {
+                        node *newnode=new node;
+                        newnode->data=data;
+                        newnode->next=NULL;
+                        return newnode;
+                }
+
+                node* gettop();
+                void add(int);
+                void delete_element();
+                 void display();
+};
+LinkedList::LinkedList()
+{
+        top=NULL;
+        total_count=0;
+}
+
+
+bool LinkedList::isEmpty()
+{
+        if(total_count==0)
+                return true;
+        else
+                return false;
+}
+
+void LinkedList::add(int data)
+{
+        node *newnode=create_node(data);
+        if(isEmpty())
+        {
+                top=newnode;
+
+                ref=newnode;
+        }
+        else
+        {
+                top->next=newnode;
+                top=newnode;
+        }
+        total_count=total_count+1;
+}
+void LinkedList::delete_element()
+{
+        node *temp=ref;
+        if(isEmpty())
+        {
+                cout<<"No element to delete from the list"<<endl;
+        }
+        while(temp->next!=top)
+        {
+                temp=temp->next;
+        }
+        delete top;
+        top = temp;
+        temp->next=NULL;
+
+}
+void LinkedList::display()
+{
+        node *temp=top;
+        if(isEmpty())
+                {
+               // cout<<"List is empty"<<endl;
+                }
+        else
+                {
+                         node *n=ref;
+                         for(n=ref;n!=NULL;n=n->next)
+                         {
+                                cout<<n->data<<endl;
+                        }
+
+                         //cout<<n->data<<endl;
+                 }
+
+}
+
+node* LinkedList::gettop()
+{
+        cout<<"Element at first: "<<top->data<<endl;
+
+}
+int main()
+{
+        LinkedList a;
+        int i=0;
+        while(1)
+        {
+                cout<<"Enter the choice "<<endl;
+                cout<<"1.Add into stack"<<endl;
+                cout<<"2.Delete into to stack"<<endl;
+                cout<<"3.Get top"<<endl;
+                cout<<"4.DISPLAY"<<endl;
+                cout<<"5.Exit"<<endl;
+                cin>>i;
+                switch(i)
+                {
+                        case 1:
+                                {
+                                        int m;
+                                        cout<<"Enter the element to add into linked list based stack "<<endl;
+                                        cin>>m;
+                                        a.add(m);
+                                        break;
+                                }
+
+                        case 2:
+                                {
+                                        a.delete_element();
+                                        break;
+                                }
+
+                        case 3:
+                                {
+                                        a.gettop();
+                                        break;
+                                }
+                        case 4:
+                                {
+                                        a.display();
+                                        break;
+                                }
+
+                        case 5:
+                                        exit(1);
+                }
+        }
+}

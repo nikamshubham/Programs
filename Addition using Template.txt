@@ -1,0 +1,26 @@
+#include"iostream"
+using namespace std;
+template<class T>
+void add(T ,T );
+int main()
+{
+        int no1,no2;
+        cout<<"Enter the no1"<<endl;
+        cin>>no1;
+        cout<<"Enter the no2"<<endl;
+        cin>>no2;
+        add(no1,no2);
+        float a,b;
+        cout<<"Enter the a"<<endl;
+        cin>>a;
+        cout<<"Enter the b"<<endl;
+        cin>>b;
+        add(a,b);
+        return 0;
+}
+template<class T>
+void add( T no1, T no2)
+{
+        T s =no1+no2;
+        cout<<s;
+}

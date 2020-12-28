@@ -1,0 +1,26 @@
+#include"iostream"
+using namespace std;
+int number(int ul,int upp);
+int main()
+{
+        int ll,ul, resutl;
+        cout<<"Enter the lower limit "<<endl;
+        cin>>ll;
+        cout<<"Enter the uper limit "<<endl;
+        cin>>ul;
+        number(ll,ul);
+        return 0;
+}
+int number(int ul,int upp)
+
+{
+        if(ul>upp)
+                return 0;
+        else
+        {
+                cout<<ul<<endl;
+                number(ul+1,upp);
+        }
+
+}
+

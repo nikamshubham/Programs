@@ -1,0 +1,19 @@
+#include"iostream"
+using namespace std;
+int sum(int a);
+int main()
+{
+        int no,result;
+        cout<<"Enter the till to find the sum"<<endl;
+        cin>>no;
+        result=sum(no);
+        cout<<"The sum of "<<no<<" natural no is "<<result<<endl;
+        return 0;
+}
+int sum(int a)
+{
+        if(a==0)
+                return 0;
+        else
+                return a+sum(a-1);
+}

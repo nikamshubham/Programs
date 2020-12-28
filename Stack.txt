@@ -1,0 +1,105 @@
+#include"iostream"
+#include"cstring"
+using namespace std;
+class Stack
+{
+        private:
+                int top;
+                int *ptr;
+                int size;
+        public:
+                Stack(int);
+                void push(int);
+                void pop();
+                void topelement();
+                bool isEmpty();
+                bool isFull();
+                void display();
+
+};
+Stack::Stack(int size)
+{
+        this->size=size;
+        top=-1;
+        ptr=new int[size];
+}
+bool Stack::isEmpty()
+{
+        if(top==-1)
+                return true;
+        else
+                return false;
+}
+bool Stack::isFull()
+{
+        if(top==(size-1))
+                return true;
+        else
+                return false;
+}
+void Stack::push(int element)
+{
+        if(isEmpty())
+        {
+                top=top+1;
+                ptr[top]=element;
+        }
+        else if(isFull())
+        {
+                cout<<"Stack is Full"<<endl;
+        }
+        else
+        {
+                top=top+1;
+                ptr[top]=element;
+        }
+}
+void Stack::pop()
+{
+        if(isEmpty())
+                cout<<"Stack is empty no element to pop"<<endl;
+        else
+        {
+                int pop_element=ptr[top];
+                top=top-1;
+                cout<<"The pop element is "<<pop_element<<endl;
+        }
+}
+void Stack::topelement()
+{
+        if(isEmpty())
+                cout<<"Stack is empty"<<endl;
+        else
+        {
+                int a=ptr[top];
+                cout<<"The topmost element of stack is: "<<a<<endl;
+        }
+}
+void Stack::display()
+{
+        if(isEmpty())
+                cout<<"Stack is empty"<<endl;
+        else
+        {
+                for(int i=0;i<=top;i++)
+                {
+                        cout<<ptr[i]<<endl;
+                }
+        }
+}
+int main()
+{       int n;
+        cout<<"Enter size of a stack ";
+        cin>>n;
+        Stack a(n);
+        a.push(13);
+        a.push(12);
+//      a.pop();
+        //a.push(1);
+        //a.pop(13);
+        //a.pop(1);
+        a.display();
+//      a.topelement();
+
+}
+  
